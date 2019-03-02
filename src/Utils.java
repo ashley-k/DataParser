@@ -24,19 +24,34 @@ public class Utils {
 
     public static ArrayList<ElectionResult> parse2016ElectionResults(String data) {
         ArrayList<ElectionResult> results = new ArrayList<>();
-        String cleanData = cleanData(data);
-        String lines[] = cleanData.split(",");
+        String lines[] = data.split("\n");
 
         for(String s : lines){
-            ElectionResult current = getElectionResult(s);
+            String cleanedData = cleanData(s);
+            ElectionResult current = getElectionResult(cleanedData);
             results.add(current);
         }
         return results;
     }
 
     private static String cleanData(String data) {
+        String newData = "";
+        boolean inString = false;
+        String validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
+        for(int i = 0; i < data.length(); i++){
+            String letter = data.substring(i,i+1);
+            if(letter.equals(",")){
+                if(!inString) newData += letter;
+            } else if(letter.equals("\"")){
+                inString = !inString;
+            } else if(validChars.indexOf(letter) != -1){
+                newData += letter;
+            }
+        }
+        return newData;
     }
 
     private static ElectionResult getElectionResult(String s) {
+
     }
 }
