@@ -26,8 +26,8 @@ public class Utils {
         ArrayList<ElectionResult> results = new ArrayList<>();
         String lines[] = data.split("\n");
 
-        for(String s : lines){
-            String cleanedData = cleanData(s);
+        for(int i = 1; i < lines.length; i++){
+            String cleanedData = cleanData(lines[i]);
             ElectionResult current = getElectionResult(cleanedData);
             results.add(current);
         }
@@ -52,6 +52,19 @@ public class Utils {
     }
 
     private static ElectionResult getElectionResult(String s) {
+        String items[] = s.split(",");
+        double votes_dem = Double.parseDouble(items[1]);
+        double votes_gop = Double.parseDouble(items[2]);
+        double total_votes = Double.parseDouble(items[3]);
+        double per_dem = Double.parseDouble(items[4]);
+        double per_gop = Double.parseDouble(items[5]);
+        double diff = Double.parseDouble(items[6]);
+        double per_point_diff = Double.parseDouble(items[7]);
+        String state_abbr = items[8];
+        String county_name = items[9];
+        int combined_fips = Integer.parseInt(items[10]);
 
+        ElectionResult result = new ElectionResult(votes_dem, votes_gop, total_votes, per_dem, per_gop, diff, per_point_diff, state_abbr, county_name, combined_fips);
+        return result;
     }
 }
