@@ -35,8 +35,7 @@ public class Utils {
     }
 
     private static String cleanData(String data) {
-        String newData = "";
-        boolean inString = false;
+        String newData = ""; boolean inString = false;
         String validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
         for(int i = 0; i < data.length(); i++){
             String letter = data.substring(i,i+1);
