@@ -22,11 +22,34 @@ public class Utils {
         return output.toString();
     }
 
+    public static void parse2016PresidentialResults(String input, DataManager data){
+        String lines[] = input.split("\n");
+
+        for(int i = 1; i < lines.length; i++){
+            String cleanedData = cleanData(lines[i]);
+            String items[] = cleanedData.split(",");
+
+            double demVotes = Double.parseDouble(items[1]);
+            double gopVotes = Double.parseDouble(items[2]);
+            double totalVotes = Double.parseDouble(items[3]);
+            Election2016 election = new Election2016(demVotes, gopVotes, totalVotes);
+
+            String state_abbr = items[8];
+            String county_name = items[9];
+            int fips = Integer.parseInt(items[10]);
+
+            State state = getState(state_abbr, data);
+            County county = getCounty(county_name, fips, state);
+            county.setVote2016(election);
+        }
+    }
+
     private static State getState(String state_abbr, DataManager data) {
         List<State> states = data.getStates();
         for(State currentState : states){
-            if(state_abbr.equals(currentState.getName())
+            if(state_abbr.equals(currentState.getName())){
                 return currentState;
+            }
         }
         State newState = new State(state_abbr, new ArrayList<County>());
         data.getStates().add(newState);
