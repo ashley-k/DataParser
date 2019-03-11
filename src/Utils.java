@@ -69,6 +69,31 @@ public class Utils {
         }
     }
 
+    public static void parse2016EmploymentStats(String input, DataManager data){
+        String lines[] = input.split("\n");
+
+        for(int i = 8; i < lines.length; i++) {
+            String cleanedData = cleanData(lines[i]);
+            cleanedData = fixData(cleanedData);
+            String items[] = cleanedData.split(",");
+
+            int totalLaborForce = Integer.parseInt(items[42]);
+            int employedLaborForce = Integer.parseInt(items[43]);
+            int unemployedLaborForce = Integer.parseInt(items[44]);
+            double unemployedPercent = Double.parseDouble(items[45]);
+            Employment2016 employment = new Employment2016(totalLaborForce, employedLaborForce, unemployedLaborForce, unemployedPercent);
+
+            String state_abbr = items[1];
+            String county_name = items[2];
+            int fips = Integer.parseInt(items[0]);
+
+            State state = getState(state_abbr, data);
+            County county = getCounty(county_name, state);
+            county.setFips(fips);
+            county.setEmploy2016(employment);
+        }
+    }
+
     private static String fixData(String cleanedData) {
         String newData = "";
         if(cleanedData.substring(0,1).equals(",")) newData += "0";
