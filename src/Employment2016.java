@@ -42,4 +42,14 @@ public class Employment2016 {
     public void setUnemployedPercent(double unemployedPercent) {
         this.unemployedPercent = unemployedPercent;
     }
+
+    @Override
+    public String toString() {
+        return "Employment2016{" +
+                "totalLaborForce=" + totalLaborForce +
+                ", employedLaborForce=" + employedLaborForce +
+                ", unemployedLaborForce=" + unemployedLaborForce +
+                ", unemployedPercent=" + unemployedPercent +
+                '}';
+    }
 }
