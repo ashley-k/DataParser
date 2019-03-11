@@ -39,9 +39,52 @@ public class Utils {
             int fips = Integer.parseInt(items[10]);
 
             State state = getState(state_abbr, data);
-            County county = getCounty(county_name, fips, state);
+            County county = getCounty(county_name, state);
             county.setVote2016(election);
         }
+    }
+
+    public static void parse2016EducationStats(String input, DataManager data){
+        String lines[] = input.split("\n");
+
+        for(int i = 5; i < lines.length; i++) {
+            String cleanedData = cleanData(lines[i]);
+            cleanedData = fixData(cleanedData);
+            String items[] = cleanedData.split(",");
+
+            double noHighSchool = Double.parseDouble(items[43]);
+            double onlyHighSchool = Double.parseDouble(items[44]);
+            double someCollege = Double.parseDouble(items[45]);
+            double bachelorsOrMore = Double.parseDouble(items[46]);
+            Education2016 education = new Education2016(noHighSchool, onlyHighSchool, someCollege, bachelorsOrMore);
+
+            String state_abbr = items[1];
+            String county_name = items[2];
+            int fips = Integer.parseInt(items[0]);
+
+            State state = getState(state_abbr, data);
+            County county = getCounty(county_name, state);
+            county.setFips(fips);
+            county.setEduc2016(education);
+        }
+    }
+
+    private static String fixData(String cleanedData) {
+        String newData = "";
+        if(cleanedData.substring(0,1).equals(",")) newData += "0";
+
+        for(int i = 0; i < cleanedData.length()-1; i++){
+            String letter1 = cleanedData.substring(i, i+1), letter2 = cleanedData.substring(i+1, i+2);
+            if(letter1.equals(",") && letter2.equals(",")){
+                newData = newData + letter1 + "0";
+            } else {
+                newData += letter1;
+            }
+
+            if(i == cleanedData.length()-2) newData += letter2;
+        }
+        if(cleanedData.substring(cleanedData.length()-1, cleanedData.length()).equals(",")) newData += "0";
+        return newData;
     }
 
     private static State getState(String state_abbr, DataManager data) {
@@ -56,14 +99,14 @@ public class Utils {
         return newState;
     }
 
-    private static County getCounty(String county_name, int fips, State state) {
+    private static County getCounty(String county_name, State state) {
         List<County> counties = state.getCounties();
         for(County currentCounty : counties){
             if(county_name.equals(currentCounty.getName())){
                 return currentCounty;
             }
         }
-        County newCounty = new County(county_name, fips);
+        County newCounty = new County(county_name);
         state.getCounties().add(newCounty);
         return newCounty;
     }
