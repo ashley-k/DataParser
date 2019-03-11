@@ -42,4 +42,14 @@ public class Education2016 {
     public void setBachelorsOrMore(double bachelorsOrMore) {
         this.bachelorsOrMore = bachelorsOrMore;
     }
+
+    @Override
+    public String toString() {
+        return "Education2016{" +
+                "noHighSchool=" + noHighSchool +
+                ", onlyHighSchool=" + onlyHighSchool +
+                ", someCollege=" + someCollege +
+                ", bachelorsOrMore=" + bachelorsOrMore +
+                '}';
+    }
 }
