@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Utils {
@@ -21,6 +22,28 @@ public class Utils {
         return output.toString();
     }
 
+    private static State getState(String state_abbr, DataManager data) {
+        List<State> states = data.getStates();
+        for(State currentState : states){
+            if(state_abbr.equals(currentState.getName())
+                return currentState;
+        }
+        State newState = new State(state_abbr, new ArrayList<County>());
+        data.getStates().add(newState);
+        return newState;
+    }
+
+    private static County getCounty(String county_name, int fips, State state) {
+        List<County> counties = state.getCounties();
+        for(County currentCounty : counties){
+            if(county_name.equals(currentCounty.getName())){
+                return currentCounty;
+            }
+        }
+        County newCounty = new County(county_name, fips);
+        state.getCounties().add(newCounty);
+        return newCounty;
+    }
 
     public static ArrayList<ElectionResult> parse2016ElectionResults(String data) {
         ArrayList<ElectionResult> results = new ArrayList<>();
