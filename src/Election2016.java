@@ -33,4 +33,13 @@ public class Election2016 {
     public void setTotalVotes(double totalVotes) {
         this.totalVotes = totalVotes;
     }
+
+    @Override
+    public String toString() {
+        return "Election2016{" +
+                "demVotes=" + demVotes +
+                ", gopVotes=" + gopVotes +
+                ", totalVotes=" + totalVotes +
+                '}';
+    }
 }
