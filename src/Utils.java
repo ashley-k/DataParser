@@ -47,7 +47,7 @@ public class Utils {
     public static void parse2016EducationStats(String input, DataManager data){
         String lines[] = input.split("\n");
 
-        for(int i = 5; i < lines.length; i++) {
+        for(int i = 5; i < 3288; i++) {
             String cleanedData = cleanData(lines[i]);
             cleanedData = fixData(cleanedData);
             String items[] = cleanedData.split(",");
@@ -126,6 +126,7 @@ public class Utils {
 
     private static County getCounty(String county_name, State state) {
         county_name = cleanCountyName(county_name);
+        county_name = addSpaceBreaks(county_name);
         List<County> counties = state.getCounties();
         for(County currentCounty : counties){
             if(county_name.equals(currentCounty.getName())){
@@ -145,6 +146,16 @@ public class Utils {
             return county_name.substring(0, n-2);
         }
         return county_name;
+    }
+
+    private static String addSpaceBreaks(String county_name) {
+        String newName = "";
+        for(int i = 0; i < county_name.length(); i++){
+            char letter = county_name.charAt(i);
+            if(isUppercase(letter) && i != 0) newName += " ";
+            newName += letter;
+        }
+        return newName;
     }
 
     private static boolean isUppercase(char letter) {
