@@ -125,6 +125,7 @@ public class Utils {
     }
 
     private static County getCounty(String county_name, State state) {
+        county_name = cleanCountyName(county_name);
         List<County> counties = state.getCounties();
         for(County currentCounty : counties){
             if(county_name.equals(currentCounty.getName())){
@@ -134,6 +135,20 @@ public class Utils {
         County newCounty = new County(county_name);
         state.getCounties().add(newCounty);
         return newCounty;
+    }
+
+    private static String cleanCountyName(String county_name) {
+        if(county_name.length() < 2) return county_name;
+        int n = county_name.length();
+        char lastLetter = county_name.charAt(n-1), secondLastLetter = county_name.charAt(n-2);
+        if(isUppercase(lastLetter) && isUppercase(secondLastLetter)){
+            return county_name.substring(0, n-2);
+        }
+        return county_name;
+    }
+
+    private static boolean isUppercase(char letter) {
+        return (letter >= 65 && letter <= 90);
     }
 
     public static ArrayList<ElectionResult> parse2016ElectionResults(String data) {
