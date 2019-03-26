@@ -20,6 +20,31 @@ public class Main {
         Utils.parseAverageViolentCrimeStats(violenceData, data);
         Utils.parseExcessiveDrinking(drinkingData, data);
 
+        String result = dataToString(data);
+        System.out.println(result);
+    }
+
+    public static String dataToString(DataManager data){
+        String result = "";
+        State california = data.getStates().get(0);
+        for(County county : california.getCounties()){
+            Employment2016 employment = county.getEmploy2016();
+            Education2016 education = county.getEduc2016();
+            int excessiveDrinkingPercent = county.getExcessiveDrinkingPercent();
+            double avgViolentCrime = county.getAvgViolentCrimes();
+
+            String countyData = "CA," + county.getName();
+            countyData = countyData + "," + employment.getMedianHHIncome() + "," +  employment.getMedianHHIncomePercent();
+            countyData = countyData + "," + education.getNoHighSchool() + "," + education.getOnlyHighSchool() + "," + education.getSomeCollege() + "," + education.getBachelorsOrMore();
+            countyData = countyData + "," + excessiveDrinkingPercent;
+            countyData = countyData + "," + avgViolentCrime;
+
+            result = result + countyData + "\n";
+        }
+        return result;
+    }
+
+    public static void printData(DataManager data){
         for(State s : data.getStates()){
             System.out.println("STATE: " + s.getName());
             for(County c : s.getCounties()){
