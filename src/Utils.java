@@ -77,11 +77,10 @@ public class Utils {
             cleanedData = fixData(cleanedData);
             String items[] = cleanedData.split(",");
 
-            int totalLaborForce = Integer.parseInt(items[42]);
-            int employedLaborForce = Integer.parseInt(items[43]);
-            int unemployedLaborForce = Integer.parseInt(items[44]);
-            double unemployedPercent = Double.parseDouble(items[45]);
-            Employment2016 employment = new Employment2016(totalLaborForce, employedLaborForce, unemployedLaborForce, unemployedPercent);
+            int finalIndex = items.length-1;
+            int medianHHIncome = Integer.parseInt(items[finalIndex-1]);
+            double medianHHIncomePercent = Double.parseDouble(items[finalIndex]);
+            Employment2016 employment = new Employment2016(medianHHIncome, medianHHIncomePercent);
 
             String state_abbr = items[1];
             String county_name = items[2];
