@@ -94,6 +94,33 @@ public class Utils {
         }
     }
 
+    //parses the average violent crime dataset, which only includes California
+    public static void parseAverageViolentCrimeStats(String input, DataManager data){
+        String lines[] = input.split("\n");
+
+        for(int i = 8; i < lines.length; i++) {
+            String cleanedData = cleanData(lines[i]);
+            cleanedData = fixData(cleanedData);
+            String items[] = cleanedData.split(",");
+
+            String State = "CA";
+            String area = items[0];
+            int averageViolentCrime = Integer.parseInt(items[1]);
+
+        }
+    }
+
+    public static void parseExcessiveDrinking(String input, DataManager data) {
+        String lines[] = input.split("\n");
+
+        for (int i = 8; i < lines.length; i++) {
+            String cleanedData = cleanData(lines[i]);
+            cleanedData = fixData(cleanedData);
+            String items[] = cleanedData.split(",");
+
+        }
+    }
+
     private static String fixData(String cleanedData) {
         String newData = "";
         if(cleanedData.substring(0,1).equals(",")) newData += "0";
