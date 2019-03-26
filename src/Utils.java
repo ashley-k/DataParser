@@ -102,18 +102,13 @@ public class Utils {
             cleanedData = fixData(cleanedData);
             String items[] = cleanedData.split(",");
 
-            String state = "CA";
-            String area = items[0];
+            String state_abbr = "CA";
+            String county_name = items[0] + "County";
             int averageViolentCrime = Integer.parseInt(items[1]);
 
-            for(State s : data.getStates()){
-                if(s.getName().equals(state)){
-                    for(County c: s.getCounties()){
-                        if(c.getName().equals(area))
-                            c.setAvgViolentCrimes(averageViolentCrime);
-                    }
-                }
-            }
+            State state = getState(state_abbr,data);
+            County county = getCounty(county_name, state);
+            county.setAvgViolentCrimes(averageViolentCrime);
         }
     }
 
