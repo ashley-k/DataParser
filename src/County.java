@@ -4,6 +4,8 @@ public class County {
     private Election2016 vote2016;
     private Education2016 educ2016;
     private Employment2016 employ2016;
+    private int excessiveDrinkingPercent;
+    private int avgViolentCrimes;
 
     public County(String name) {
         this.name = name;
@@ -27,6 +29,22 @@ public class County {
 
     public void setFips(int fips) {
         this.fips = fips;
+    }
+
+    public void setAvgViolentCrimes(int avgViolentCrimes) {
+        this.avgViolentCrimes = avgViolentCrimes;
+    }
+
+    public void setExcessiveDrinkingPercent(int excessiveDrinkingPercent) {
+        this.excessiveDrinkingPercent = excessiveDrinkingPercent;
+    }
+
+    public int getAvgViolentCrimes() {
+        return avgViolentCrimes;
+    }
+
+    public int getExcessiveDrinkingPercent() {
+        return excessiveDrinkingPercent;
     }
 
     public Election2016 getVote2016() {
