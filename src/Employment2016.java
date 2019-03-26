@@ -1,55 +1,25 @@
 public class Employment2016 {
-    private int totalLaborForce;
-    private int employedLaborForce;
-    private int unemployedLaborForce;
-    private double unemployedPercent;
+    private int medianHHIncome;
+    private int medianHHIncomePercent;
 
-    public Employment2016(int totalLaborForce, int employedLaborForce, int unemployedLaborForce, double unemployedPercent) {
-        this.totalLaborForce = totalLaborForce;
-        this.employedLaborForce = employedLaborForce;
-        this.unemployedLaborForce = unemployedLaborForce;
-        this.unemployedPercent = unemployedPercent;
+    public Employment2016(int medianHHIncome, int medianHHIncomePercent) {
+        this.medianHHIncome = medianHHIncome;
+        this.medianHHIncomePercent = medianHHIncomePercent;
     }
 
-    public int getTotalLaborForce() {
-        return totalLaborForce;
+    public int getMedianHHIncome() {
+        return medianHHIncome;
     }
 
-    public void setTotalLaborForce(int totalLaborForce) {
-        this.totalLaborForce = totalLaborForce;
+    public void setMedianHHIncome(int medianHHIncome) {
+        this.medianHHIncome = medianHHIncome;
     }
 
-    public int getEmployedLaborForce() {
-        return employedLaborForce;
+    public int getMedianHHIncomePercent() {
+        return medianHHIncomePercent;
     }
 
-    public void setEmployedLaborForce(int employedLaborForce) {
-        this.employedLaborForce = employedLaborForce;
-    }
-
-    public int getUnemployedLaborForce() {
-        return unemployedLaborForce;
-    }
-
-    public void setUnemployedLaborForce(int unemployedLaborForce) {
-        this.unemployedLaborForce = unemployedLaborForce;
-    }
-
-    public double getUnemployedPercent() {
-        return unemployedPercent;
-    }
-
-    public void setUnemployedPercent(double unemployedPercent) {
-        this.unemployedPercent = unemployedPercent;
-    }
-
-    @Override
-    public String toString() {
-        return "Employment2016{" +
-                "totalLaborForce=" + totalLaborForce +
-                ", employedLaborForce=" + employedLaborForce +
-                ", unemployedLaborForce=" + unemployedLaborForce +
-                ", unemployedPercent=" + unemployedPercent +
-                '}';
+    public void setMedianHHIncomePercent(int medianHHIncomePercent) {
+        this.medianHHIncomePercent = medianHHIncomePercent;
     }
 }
