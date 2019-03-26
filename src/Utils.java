@@ -47,7 +47,7 @@ public class Utils {
     public static void parse2016EducationStats(String input, DataManager data){
         String lines[] = input.split("\n");
 
-        for(int i = 5; i < 3288; i++) {
+        for(int i = 5; i < lines.length; i++) {
             String cleanedData = cleanData(lines[i]);
             cleanedData = fixData(cleanedData);
             String items[] = cleanedData.split(",");
