@@ -1,8 +1,8 @@
 public class Employment2016 {
     private int medianHHIncome;
-    private int medianHHIncomePercent;
+    private double medianHHIncomePercent;
 
-    public Employment2016(int medianHHIncome, int medianHHIncomePercent) {
+    public Employment2016(int medianHHIncome, double medianHHIncomePercent) {
         this.medianHHIncome = medianHHIncome;
         this.medianHHIncomePercent = medianHHIncomePercent;
     }
@@ -15,11 +15,11 @@ public class Employment2016 {
         this.medianHHIncome = medianHHIncome;
     }
 
-    public int getMedianHHIncomePercent() {
+    public double getMedianHHIncomePercent() {
         return medianHHIncomePercent;
     }
 
-    public void setMedianHHIncomePercent(int medianHHIncomePercent) {
+    public void setMedianHHIncomePercent(double medianHHIncomePercent) {
         this.medianHHIncomePercent = medianHHIncomePercent;
     }
 }
