@@ -93,6 +93,53 @@ public class Utils {
         }
     }
 
+    //parses the average violent crime dataset, which only includes California
+    public static void parseAverageViolentCrimeStats(String input, DataManager data){
+        String lines[] = input.split("\n");
+
+        for(int i = 1; i < lines.length; i++) {
+            String cleanedData = cleanData(lines[i]);
+            cleanedData = fixData(cleanedData);
+            String items[] = cleanedData.split(",");
+
+            String state = "CA";
+            String area = items[0];
+            int averageViolentCrime = Integer.parseInt(items[1]);
+
+            for(State s : data.getStates()){
+                if(s.getName().equals(state)){
+                    for(County c: s.getCounties()){
+                        if(c.getName().equals(area))
+                            c.setAvgViolentCrimes(averageViolentCrime);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void parseExcessiveDrinking(String input, DataManager data) {
+        String lines[] = input.split("\n");
+
+        for (int i = 1; i < lines.length; i++) {
+            String cleanedData = cleanData(lines[i]);
+            cleanedData = fixData(cleanedData);
+            String items[] = cleanedData.split(",");
+
+            String state = "CA";
+            String area = items[0];
+            int percentExcessiveDrinking = Integer.parseInt(items[1]);
+
+            for(State s : data.getStates()){
+                if(s.getName().equals(state)){
+                    for(County c: s.getCounties()){
+                        if(c.getName().equals(area))
+                            c.setExcessiveDrinkingPercent(percentExcessiveDrinking);
+                    }
+                }
+            }
+        }
+    }
+
     private static String fixData(String cleanedData) {
         String newData = "";
         if(cleanedData.substring(0,1).equals(",")) newData += "0";
