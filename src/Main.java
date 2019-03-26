@@ -12,9 +12,13 @@ public class Main {
 
         String educationData = Utils.readFileAsString("data/Education.csv");
         String unemploymentData = Utils.readFileAsString("data/Unemployment.csv");
+        String drinkingData = Utils.readFileAsString("data/Excessive drinking - Sheet1.csv");
+        String violenceData = Utils.readFileAsString("data/Average Violent Crimes - Sheet1.csv");
 
         Utils.parse2016EducationStats(educationData, data);
         Utils.parse2016EmploymentStats(unemploymentData, data);
+        Utils.parseAverageViolentCrimeStats(violenceData, data);
+        Utils.parseExcessiveDrinking(drinkingData, data);
 
         for(State s : data.getStates()){
             System.out.println("STATE: " + s.getName());
