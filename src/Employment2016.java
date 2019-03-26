@@ -22,4 +22,12 @@ public class Employment2016 {
     public void setMedianHHIncomePercent(double medianHHIncomePercent) {
         this.medianHHIncomePercent = medianHHIncomePercent;
     }
+
+    @Override
+    public String toString() {
+        return "Employment2016{" +
+                "medianHHIncome=" + medianHHIncome +
+                ", medianHHIncomePercent=" + medianHHIncomePercent +
+                '}';
+    }
 }
