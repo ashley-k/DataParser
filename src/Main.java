@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 /***
@@ -21,7 +24,17 @@ public class Main {
         Utils.parseExcessiveDrinking(drinkingData, data);
 
         String result = dataToString(data);
-        System.out.println(result);
+
+        writeDataToFile("data/Results.csv",result);
+    }
+
+    private static void writeDataToFile(String filePath, String data) {
+        File outFile = new File(filePath);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
+            writer.write(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static String dataToString(DataManager data){
