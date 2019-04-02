@@ -130,6 +130,42 @@ public class Utils {
         }
     }
 
+    public static void parse2016DeathStats(String input, DataManager data){
+        String lines[] = input.split("\n");
+
+        for(int i = 1; i < lines.length; i++) {
+            String cleanedData = cleanDataLeaveSpaces(lines[i]);
+            cleanedData = fixData(cleanedData);
+            String items[] = cleanedData.split(",");
+
+            int population = Integer.parseInt(items[1]);
+            double numDeaths = Double.parseDouble(items[2]);
+            double ageAdjustedDeathRate = Double.parseDouble(items[3]);
+            Death2016 death = new Death2016(population, numDeaths, ageAdjustedDeathRate);
+
+            String state_abbr = "CA";
+            String county_name = adjustLowercase(items[0]) + "County";
+            county_name = cleanData(county_name);
+
+            State state = getState(state_abbr, data);
+            County county = getCounty(county_name, state);
+            county.setDeath2016(death);
+        }
+    }
+
+    private static String adjustLowercase(String county_name) {
+        String name = "";
+        for(int i = 0; i < county_name.length(); i++){
+            char c = county_name.charAt(i);
+            if(i >= 1 && !county_name.substring(i-1,i).equals(" ") && !county_name.substring(i, i+1).equals(" ")){
+                c = (char) (c + 32);
+            }
+            name += c;
+        }
+        return name;
+    }
+
+
     private static String fixData(String cleanedData) {
         String newData = "";
         if(cleanedData.substring(0,1).equals(",")) newData += "0";
@@ -225,6 +261,23 @@ public class Utils {
         }
         return newData;
     }
+
+    private static String cleanDataLeaveSpaces(String data) {
+        String newData = ""; boolean inString = false;
+        String validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789. ";
+        for(int i = 0; i < data.length(); i++){
+            String letter = data.substring(i,i+1);
+            if(letter.equals(",")){
+                if(!inString) newData += letter;
+            } else if(letter.equals("\"")){
+                inString = !inString;
+            } else if(validChars.indexOf(letter) != -1){
+                newData += letter;
+            }
+        }
+        return newData;
+    }
+
 
     private static ElectionResult getElectionResult(String s) {
         String items[] = s.split(",");

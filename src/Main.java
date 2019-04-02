@@ -17,13 +17,16 @@ public class Main {
         String unemploymentData = Utils.readFileAsString("data/Unemployment.csv");
         String drinkingData = Utils.readFileAsString("data/Excessive drinking - Sheet1.csv");
         String violenceData = Utils.readFileAsString("data/Average Violent Crimes - Sheet1.csv");
+        String deathData = Utils.readFileAsString("data/Death2016.csv");
 
         Utils.parse2016EducationStats(educationData, data);
         Utils.parse2016EmploymentStats(unemploymentData, data);
         Utils.parseAverageViolentCrimeStats(violenceData, data);
         Utils.parseExcessiveDrinking(drinkingData, data);
+        Utils.parse2016DeathStats(deathData, data);
 
         String result = dataToString(data);
+        System.out.println(result);
 
         writeDataToFile("data/Results.csv",result);
     }
@@ -43,14 +46,17 @@ public class Main {
         for(County county : california.getCounties()){
             Employment2016 employment = county.getEmploy2016();
             Education2016 education = county.getEduc2016();
+            Death2016 death = county.getDeath2016();
             int excessiveDrinkingPercent = county.getExcessiveDrinkingPercent();
             double avgViolentCrime = county.getAvgViolentCrimes();
 
             String countyData = "CA," + county.getName();
+            countyData = countyData + "," + death.getPopulation();
             countyData = countyData + "," + employment.getMedianHHIncome() + "," +  employment.getMedianHHIncomePercent();
             countyData = countyData + "," + education.getNoHighSchool() + "," + education.getOnlyHighSchool() + "," + education.getSomeCollege() + "," + education.getBachelorsOrMore();
             countyData = countyData + "," + excessiveDrinkingPercent;
             countyData = countyData + "," + avgViolentCrime;
+            countyData = countyData + "," + death.getNumDeaths() + "," + death.getAgeAdjustedDeathRate();
 
             result = result + countyData + "\n";
         }
@@ -70,6 +76,10 @@ public class Main {
                 //test employment
                 Employment2016 employment = c.getEmploy2016();
                 System.out.println("\t\t" + employment.toString());
+
+                //test death
+                Death2016 death = c.getDeath2016();
+                System.out.println("\t\t" + death.toString());
             }
         }
     }
